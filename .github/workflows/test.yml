@@ -40,7 +40,7 @@ jobs:
         uses: actions/checkout@v5
         with:
           repository: JaredFA363/TestingCrossRepoTerraformInfra
-          path: main.tf
+          path: other-repo
     
       - name: Cat a file from the other repo
-        run: cat main.tf
+        run: cat other-repo/main.tf
