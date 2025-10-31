@@ -34,3 +34,13 @@ jobs:
         with:
           name: importer-output
           path: terraform_imports.tf
+
+
+      - name: Checkout other repo
+        uses: actions/checkout@v5
+        with:
+          repository: https://github.com/JaredFA363/TestingCrossRepoTerraformInfra/tree/main
+          path: main.tf
+    
+      - name: Cat a file from the other repo
+        run: cat main.tf
