@@ -1,0 +1,59 @@
+  # atlassian-operations_email_integration.email_v2["default"] will be imported
+    resource "atlassian-operations_email_integration" "email_v2" {
+        advanced                 = true
+        directions               = [
+            "incoming",
+        ]
+        domains                  = [
+            "alert",
+        ]
+        enabled                  = true
+        id                       = "7c80faf0-8f0c-461f-a1b8-ebcc491574c9"
+        maintenance_sources      = []
+        name                     = "cc-integration-email-default-v2"
+        team_id                  = "og-a541a68b-56ef-440a-82d1-f5112cd9f7e0"
+        type_specific_properties = {
+            email_username         = "cc-default-alerts"
+            suppress_notifications = false
+        }
+    }
+
+  # atlassian-operations_escalation.this["0"] will be updated in-place
+  # (imported from "b713a93f-bc63-4368-9f14-26bfc5810e16,og-a541a68b-56ef-440a-82d1-f5112cd9f7e0")
+  ~ resource "atlassian-operations_escalation" "this" {
+        description = ""
+        enabled     = true
+        id          = "b713a93f-bc63-4368-9f14-26bfc5810e16"
+      ~ name        = "cc-escalation-default" -> "core cloud-escalation-default"
+      + repeat      = (known after apply)
+        rules       = [
+            {
+                condition   = "if-not-acked"
+                delay       = 0
+                notify_type = "default"
+                recipient   = {
+                    id   = "2a5e33e5-2d80-4059-b6ac-a2870be4b904"
+                    type = "schedule"
+                }
+            },
+            {
+                condition   = "if-not-acked"
+                delay       = 10
+                notify_type = "next"
+                recipient   = {
+                    id   = "2a5e33e5-2d80-4059-b6ac-a2870be4b904"
+                    type = "schedule"
+                }
+            },
+            {
+                condition   = "if-not-acked"
+                delay       = 15
+                notify_type = "default"
+                recipient   = {
+                    id   = "5fad312c0aa811006f84f6d9"
+                    type = "user"
+                }
+            },
+        ]
+        team_id     = "og-a541a68b-56ef-440a-82d1-f5112cd9f7e0"
+    }
