@@ -14,9 +14,17 @@ jobs:
       contents: read
     runs-on: ubuntu-latest
     steps:
-      # - name: Checkout code
-      #   uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v5
   
       - name: Run importeriser
         run: |
           echo "Running importeriser for squad: ${{ github.event.inputs.squad_name }}"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Run Python Script
+        run: python3 create_imports.py plan.txt
